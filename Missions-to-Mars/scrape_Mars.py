@@ -11,6 +11,14 @@ from splinter import Browser
 
 
 def scrape():
+
+    # Make the Mongo Database
+    conn = 'mongodb://localhost:27017'
+    client = pymongo.MongoClient(conn)
+    client.drop_database('mars_db')
+    db = client.mars_db
+    collection = db.articles
+
     # Connect to browser
     executable_path = {'executable_path' : ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless = False)
@@ -76,27 +84,30 @@ def scrape():
     img_urls = []
 
     for name in results:
-        dict_for_mars = {}
+        dic_pic = {}
         temp = name.find('h3').text
         two_words = temp[:-9]
-        dict_for_mars['title'] = two_words
+        dic_pic['title'] = two_words
 
         browser.click_link_by_partial_text(temp)
         html = browser.html
         soup = BeautifulSoup(html, 'html.parser')
         img = soup.find_all('img')[5]['src']
-        base_url = 'astrogeology.usgs.gov'
+        base_url = 'https://astrogeology.usgs.gov'
         img_url = base_url + img
-        dict_for_mars['img_url'] = img_url
-        
-        img_urls.append(dict_for_mars)
-        
+        dic_pic['img_urls'] = img_url
+        img_urls.append(dic_pic)
         browser.back()
-        
-    mars['img_urls'] = img_urls 
+    
+    
+    mars['hemispheres'] = img_urls
+
+    
 
 
     browser.quit()
+
+    collection.insert_one(mars)
 
     return(mars)
 
