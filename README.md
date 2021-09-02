@@ -1,6 +1,3 @@
-# web-scraping-challenge
+# Mars
 
-In this challenge, I use my mad Jupyter Notebook skills to scrape data about Mars from numerous websites. I then compiled this data into a MongoDB database and used the database to create a webpage. This webpage is interactive in that there is a button. When the button is pushed, the webpages are scraped from again and the most up-to-date information is loaded to the page.
-
-The data taken from various websites includes photographs, statistics, and news articles.
-
+Using Python in Jupyter Notebook I scraped photographs, statistics, and news articles from [NASA Mars News Site](https://mars.nasa.gov/news/), [Jet Propulsion Laboratory](https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html), [Space Facts](https://space-facts.com/mars/), and [Astropedia](https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars). I then compiled this data into a MongoDB database and used the database to create a webpage. On this webpage, when the button is pushed, the webpages are scraped from again and the most up-to-date information is loaded to the page.
